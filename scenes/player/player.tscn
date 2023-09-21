@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxmr83tef7btq"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_ey8co"]
+[ext_resource type="Script" path="res://scenes/player/player_cam.gd" id="2_83lt2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2drew"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iut65"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_ey8co")
+
+[node name="Head" type="Node3D" parent="." node_paths=PackedStringArray("body")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("2_83lt2")
+body = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="HammerHitbox" type="Area3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/HammerHitbox"]
+shape = SubResource("BoxShape3D_2drew")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_iut65")

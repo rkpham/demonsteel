@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://csbl3duvwfyu"]
+
+[ext_resource type="PackedScene" uid="uid://cxmr83tef7btq" path="res://scenes/player/player.tscn" id="1_n1qw1"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_faq17"]
+
+[sub_resource type="Sky" id="Sky_3qc0f"]
+sky_material = SubResource("PhysicalSkyMaterial_faq17")
+
+[sub_resource type="Environment" id="Environment_d6vhe"]
+background_mode = 2
+sky = SubResource("Sky_3qc0f")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ophv1"]
+size = Vector3(8, 0.1, 8)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cbjmd"]
+size = Vector2(8, 8)
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_d6vhe")
+
+[node name="Player" parent="." instance=ExtResource("1_n1qw1")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_ophv1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_cbjmd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 3, 0)
