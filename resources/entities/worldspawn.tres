@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=3 format=3 uid="uid://5j2gmb3gg8od"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_n0cib"]
+[ext_resource type="Script" path="res://src/map.gd" id="2_ypfpg"]
+
+[resource]
+script = ExtResource("1_n0cib")
+spawn_type = 0
+build_visuals = true
+collision_shape_type = 1
+script_class = ExtResource("2_ypfpg")
+classname = "worldspawn"
+description = "World Entity"
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {}
+class_property_descriptions = {}
+meta_properties = {}
+node_class = "StaticBody3D"
+transient_node = false

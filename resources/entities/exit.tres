@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=3 format=3 uid="uid://cqkvm3ipmg44s"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_403os"]
+[ext_resource type="Script" path="res://src/entities/exit_area.gd" id="2_xuqpi"]
+
+[resource]
+script = ExtResource("1_403os")
+spawn_type = 2
+build_visuals = false
+collision_shape_type = 1
+script_class = ExtResource("2_xuqpi")
+classname = "Exit"
+description = "End of the level."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"next_level": "tutorial"
+}
+class_property_descriptions = {}
+meta_properties = {}
+node_class = "Area3D"
+transient_node = false

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=3 format=3 uid="uid://dccudfk8kfk8h"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_h4xcn"]
+[ext_resource type="Script" path="res://src/entities/checkpoint.gd" id="2_m5ev8"]
+
+[resource]
+script = ExtResource("1_h4xcn")
+spawn_type = 2
+build_visuals = false
+collision_shape_type = 1
+script_class = ExtResource("2_m5ev8")
+classname = "Checkpoint"
+description = "End of the level."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"id": -1
+}
+class_property_descriptions = {}
+meta_properties = {}
+node_class = "Area3D"
+transient_node = false

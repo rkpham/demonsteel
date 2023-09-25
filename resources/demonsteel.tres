@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="QodotFGDFile" load_steps=12 format=3 uid="uid://cr5spkm7y3gyn"]
+
+[ext_resource type="Resource" uid="uid://pllcg2l4154t" path="res://resources/entities/ghost.tres" id="1_ljonm"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_file.gd" id="2_87bon"]
+[ext_resource type="Resource" uid="uid://cqkvm3ipmg44s" path="res://resources/entities/exit.tres" id="2_boh30"]
+[ext_resource type="Resource" uid="uid://dfqbsw71g8ron" path="res://resources/entities/wall.tres" id="3_xec8y"]
+[ext_resource type="Resource" uid="uid://5j2gmb3gg8od" path="res://resources/entities/worldspawn.tres" id="4_ig1hj"]
+[ext_resource type="Resource" uid="uid://dccudfk8kfk8h" path="res://resources/entities/checkpoint.tres" id="5_j6mv2"]
+[ext_resource type="Resource" uid="uid://cl6vq5nrc7u7n" path="res://resources/entities/pit.tres" id="6_cmkiv"]
+[ext_resource type="Resource" uid="uid://c3tj8r8apwwya" path="res://resources/entities/player.tres" id="7_oo10e"]
+[ext_resource type="Resource" uid="uid://dvc518tkq2bp3" path="res://resources/entities/fake.tres" id="8_ewmgd"]
+[ext_resource type="Resource" uid="uid://csce2uhwe33b1" path="res://resources/entities/messagezone.tres" id="9_0fuh6"]
+[ext_resource type="Resource" uid="uid://ib2rn1eorreq" path="res://resources/entities/lantern.tres" id="10_lkxhn"]
+
+[resource]
+script = ExtResource("2_87bon")
+export_file = false
+target_folder = "E:/Users/Khopam/Downloads/~ Programs/GameDev/TrenchBroom-Win64-v2023.1-RC1-Release/games/Godot"
+fgd_name = "Godot"
+base_fgd_files = Array[Resource]([])
+entity_definitions = Array[Resource]([ExtResource("1_ljonm"), ExtResource("2_boh30"), ExtResource("3_xec8y"), ExtResource("4_ig1hj"), ExtResource("5_j6mv2"), ExtResource("6_cmkiv"), ExtResource("7_oo10e"), ExtResource("8_ewmgd"), ExtResource("9_0fuh6"), ExtResource("10_lkxhn")])

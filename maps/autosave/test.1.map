@@ -1,0 +1,16 @@
+// Game: Godot
+// Format: Standard
+// entity 0
+{
+"classname" "worldspawn"
+"_tb_textures" "textures;textures/bricks;textures/dirt;textures/gravel;textures/road;textures/rug;textures/slateroof;textures/woodplanks"
+// brush 0
+{
+( -64 -64 -32 ) ( -64 -63 -32 ) ( -64 -64 -31 ) dirt/dirt 0 -16 0 1 1
+( -64 -64 -32 ) ( -64 -64 -31 ) ( -63 -64 -32 ) dirt/dirt 0 -16 0 1 1
+( -64 -64 -32 ) ( -63 -64 -32 ) ( -64 -63 -32 ) dirt/dirt 0 0 0 1 1
+( 64 64 0 ) ( 64 65 0 ) ( 65 64 0 ) dirt/dirt 0 0 0 1 1
+( 64 64 0 ) ( 65 64 0 ) ( 64 64 1 ) dirt/dirt 0 -16 0 1 1
+( 64 64 0 ) ( 64 64 1 ) ( 64 65 0 ) dirt/dirt 0 -16 0 1 1
+}
+}

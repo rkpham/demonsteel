@@ -1,0 +1,96 @@
+[gd_scene load_steps=12 format=3 uid="uid://vv4ms7hev3sx"]
+
+[ext_resource type="Script" path="res://scenes/nail/nail_hit_effect.gd" id="1_uqipd"]
+
+[sub_resource type="Gradient" id="Gradient_nw6vi"]
+colors = PackedColorArray(1, 0.827451, 0.478431, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ivf28"]
+gradient = SubResource("Gradient_nw6vi")
+
+[sub_resource type="Curve" id="Curve_f7555"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_qwaa2"]
+_data = [Vector2(0, 0.557895), 0.0, -1.64807, 0, 0, Vector2(1, 0.0631579), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_iungr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_y5twj"]
+curve_x = SubResource("Curve_f7555")
+curve_y = SubResource("Curve_qwaa2")
+curve_z = SubResource("Curve_iungr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j01hw"]
+lifetime_randomness = 0.7
+particle_flag_align_y = true
+direction = Vector3(0, 0, -1)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 24.0
+scale_curve = SubResource("CurveXYZTexture_y5twj")
+color = Color(1, 0.827451, 0.478431, 1)
+color_ramp = SubResource("GradientTexture1D_ivf28")
+turbulence_enabled = true
+turbulence_noise_scale = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mwy0a"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_r201x"]
+lightmap_size_hint = Vector2i(4, 6)
+material = SubResource("StandardMaterial3D_mwy0a")
+top_radius = 0.02
+bottom_radius = 0.0
+height = 0.4
+cap_bottom = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ewaax"]
+lifetime_randomness = 0.7
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 6.0
+initial_velocity_max = 6.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 14.0
+damping_max = 20.0
+scale_curve = SubResource("CurveXYZTexture_y5twj")
+color_ramp = SubResource("GradientTexture1D_ivf28")
+turbulence_noise_scale = 2.0
+
+[node name="NailHitEffect" type="Node3D"]
+script = ExtResource("1_uqipd")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+emitting = false
+amount = 32
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_j01hw")
+draw_pass_1 = SubResource("CylinderMesh_r201x")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_ewaax")
+draw_pass_1 = SubResource("CylinderMesh_r201x")

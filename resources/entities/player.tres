@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=3 format=3 uid="uid://c3tj8r8apwwya"]
+
+[ext_resource type="PackedScene" uid="uid://cxmr83tef7btq" path="res://scenes/player/player.tscn" id="1_04ouf"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="2_cqp8r"]
+
+[resource]
+script = ExtResource("2_cqp8r")
+scene_file = ExtResource("1_04ouf")
+classname = "Player"
+description = "Player spawn."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(0, 0.921569, 0.796078, 1),
+"size": AABB(0, 0, -16, 16, 16, 16)
+}
+node_class = ""
+transient_node = false

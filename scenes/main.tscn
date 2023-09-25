@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://1dh8l7uqq57n"]
+[gd_scene load_steps=4 format=3 uid="uid://1dh8l7uqq57n"]
 
 [ext_resource type="PackedScene" uid="uid://csbl3duvwfyu" path="res://scenes/world.tscn" id="1_0e4o3"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_43lr1"]
+[ext_resource type="PackedScene" uid="uid://bdn51cwkjfwl0" path="res://scenes/ui/ui.tscn" id="2_y6fsw"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_43lr1")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="UILayer" instance=ExtResource("2_y6fsw")]
 
 [node name="World" parent="." instance=ExtResource("1_0e4o3")]

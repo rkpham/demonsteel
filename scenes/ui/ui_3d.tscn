@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b11dxa3qhq5ry"]
+
+[node name="UI3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, -0.5, -0.8)
+pixel_size = 0.001
+text = "Hello there"

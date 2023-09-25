@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3kra3a5v8357"]
+
+[ext_resource type="Script" path="res://scenes/enemies/ghost/ghost_body.gd" id="1_7l06c"]
+[ext_resource type="PackedScene" uid="uid://d3uylqvkt8xck" path="res://assets/models/ghostie.tscn" id="1_n5iwd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sllnr"]
+bounce = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ym6pg"]
+
+[node name="GhostBody" type="RigidBody3D"]
+collision_layer = 0
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_sllnr")
+gravity_scale = 0.4
+script = ExtResource("1_7l06c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ym6pg")
+
+[node name="Model" parent="." instance=ExtResource("1_n5iwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[editable path="Model"]

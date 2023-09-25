@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=2 format=3 uid="uid://dfqbsw71g8ron"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_likro"]
+
+[resource]
+script = ExtResource("1_likro")
+spawn_type = 2
+build_visuals = false
+collision_shape_type = 1
+classname = "Wall"
+description = "Invisible wall."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {}
+class_property_descriptions = {}
+meta_properties = {}
+node_class = "StaticBody3D"
+transient_node = false

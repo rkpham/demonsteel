@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=3 format=3 uid="uid://pllcg2l4154t"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="1_1jb5w"]
+[ext_resource type="PackedScene" uid="uid://c2p3sy6a6oc2c" path="res://scenes/enemies/ghost/ghost.tscn" id="1_2t5tl"]
+
+[resource]
+script = ExtResource("1_1jb5w")
+scene_file = ExtResource("1_2t5tl")
+classname = "GhostEnemy"
+description = "Basic ghost enemy."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"blind": 0
+}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(1, 0, 0, 1),
+"size": AABB(0, 0, -16, 16, 16, 16)
+}
+node_class = ""
+transient_node = false

@@ -1,6 +1,5 @@
-extends Node
+class_name Main extends Node
 
 
-func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().quit()
+func _ready() -> void:
+	Game.start_up()

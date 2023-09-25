@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=3 format=3 uid="uid://ib2rn1eorreq"]
+
+[ext_resource type="PackedScene" uid="uid://dt7rhl8ao60xs" path="res://scenes/enemies/ghost_lantern/ghost_lantern.tscn" id="1_qf73h"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="2_881p7"]
+
+[resource]
+script = ExtResource("2_881p7")
+scene_file = ExtResource("1_qf73h")
+classname = "Lantern"
+description = "Lantern platforming object."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"blind": 0
+}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(0.792157, 0.27451, 0.811765, 1),
+"size": AABB(-16, -16, -32, 32, 32, 64)
+}
+node_class = ""
+transient_node = false

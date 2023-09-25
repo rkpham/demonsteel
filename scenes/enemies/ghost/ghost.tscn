@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2p3sy6a6oc2c"]
+
+[ext_resource type="Script" path="res://scenes/enemies/ghost/ghost.gd" id="1_xgmts"]
+[ext_resource type="Script" path="res://src/state_machine/state_machine.gd" id="2_8oeak"]
+[ext_resource type="PackedScene" uid="uid://cja7bhbvrf82g" path="res://assets/models/nail_model.tscn" id="2_qb2na"]
+[ext_resource type="PackedScene" uid="uid://d3uylqvkt8xck" path="res://assets/models/ghostie.tscn" id="3_0ikml"]
+[ext_resource type="Script" path="res://scenes/enemies/ghost/ghost_idle.gd" id="3_cngyr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r0jr3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ryihr"]
+radius = 16.0
+
+[node name="Ghost" type="CharacterBody3D" groups=["ent"]]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource("1_xgmts")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("node")]
+script = ExtResource("2_8oeak")
+default_state = "Idle"
+node = NodePath("..")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_cngyr")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_r0jr3")
+
+[node name="NailModel" parent="." instance=ExtResource("2_qb2na")]
+visible = false
+
+[node name="Model" parent="." instance=ExtResource("3_0ikml")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.564936, 0)
+
+[node name="Alert" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Alert"]
+shape = SubResource("SphereShape3D_ryihr")
+
+[node name="Sight" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+collision_mask = 2
+
+[connection signal="body_entered" from="Alert" to="." method="_on_alert_body_entered"]
+[connection signal="body_exited" from="Alert" to="." method="_on_alert_body_exited"]

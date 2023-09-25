@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=3 format=3 uid="uid://cl6vq5nrc7u7n"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_cqglq"]
+[ext_resource type="Script" path="res://src/entities/pit.gd" id="2_sk0cv"]
+
+[resource]
+script = ExtResource("1_cqglq")
+spawn_type = 2
+build_visuals = false
+collision_shape_type = 1
+script_class = ExtResource("2_sk0cv")
+classname = "Pit"
+description = "Damages the player and teleports them to a safe spot."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"damage": 10
+}
+class_property_descriptions = {}
+meta_properties = {}
+node_class = "Area3D"
+transient_node = false

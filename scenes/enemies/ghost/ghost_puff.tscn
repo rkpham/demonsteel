@@ -1,0 +1,114 @@
+[gd_scene load_steps=20 format=3 uid="uid://dg4yrv65gd7uc"]
+
+[ext_resource type="Script" path="res://scenes/enemies/ghost/ghost_puff.gd" id="1_c2cy5"]
+[ext_resource type="Texture2D" uid="uid://dyotshwvn82f2" path="res://resources/textures/puff.tres" id="2_h2eqy"]
+[ext_resource type="AudioStream" uid="uid://b1h1rp0h2oaso" path="res://assets/sfx/fluff.ogg" id="2_v4r66"]
+
+[sub_resource type="Gradient" id="Gradient_d3a4i"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.490196)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jj671"]
+gradient = SubResource("Gradient_d3a4i")
+
+[sub_resource type="Gradient" id="Gradient_lxf0s"]
+offsets = PackedFloat32Array(0, 0.650406, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.152941, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ry2el"]
+gradient = SubResource("Gradient_lxf0s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ufdbf"]
+direction = Vector3(0, 1, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 6.0
+color = Color(0, 0, 0, 1)
+color_ramp = SubResource("GradientTexture1D_ry2el")
+color_initial_ramp = SubResource("GradientTexture1D_jj671")
+turbulence_enabled = true
+turbulence_noise_strength = 0.4
+turbulence_noise_scale = 2.0
+turbulence_noise_speed_random = 0.1
+turbulence_influence_min = 0.02
+turbulence_influence_max = 0.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oh4ky"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_h2eqy")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_wbocd"]
+material = SubResource("StandardMaterial3D_oh4ky")
+
+[sub_resource type="Gradient" id="Gradient_mkyqr"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.490196)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0to2r"]
+gradient = SubResource("Gradient_mkyqr")
+
+[sub_resource type="Gradient" id="Gradient_j5m45"]
+offsets = PackedFloat32Array(0, 0.747967, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.152941, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_knh2b"]
+gradient = SubResource("Gradient_j5m45")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pien1"]
+direction = Vector3(0, 1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 6.0
+color_ramp = SubResource("GradientTexture1D_knh2b")
+color_initial_ramp = SubResource("GradientTexture1D_0to2r")
+turbulence_enabled = true
+turbulence_noise_strength = 0.4
+turbulence_noise_scale = 2.0
+turbulence_noise_speed_random = 0.1
+
+[sub_resource type="Gradient" id="Gradient_11wbm"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 0.337255, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3xaji"]
+gradient = SubResource("Gradient_11wbm")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vf04v"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_3xaji")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_hnv5t"]
+material = SubResource("StandardMaterial3D_vf04v")
+size = Vector2(0.1, 0.1)
+
+[node name="GhostPuff" type="Node3D"]
+script = ExtResource("1_c2cy5")
+
+[node name="SmokePuff" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ufdbf")
+draw_pass_1 = SubResource("QuadMesh_wbocd")
+
+[node name="Sparks" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 12
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_pien1")
+draw_pass_1 = SubResource("QuadMesh_hnv5t")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_v4r66")
+autoplay = true

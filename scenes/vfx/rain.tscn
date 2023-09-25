@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://d1o347b6t8jpn"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vvi7l"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 8.0
+emission_ring_inner_radius = 2.0
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 24.0
+initial_velocity_max = 24.0
+color = Color(1, 1, 1, 0.32549)
+sub_emitter_mode = 3
+sub_emitter_amount_at_collision = 3
+collision_mode = 2
+
+[sub_resource type="Gradient" id="Gradient_gk344"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cvskv"]
+gradient = SubResource("Gradient_gk344")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l1gx6"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_cvskv")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_jmexp"]
+material = SubResource("StandardMaterial3D_l1gx6")
+size = Vector2(0.02, 0.4)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u2ggn"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hsj62"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.301961)
+albedo_texture = SubResource("GradientTexture2D_cvskv")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_3w485"]
+material = SubResource("StandardMaterial3D_hsj62")
+size = Vector2(0.05, 0.05)
+
+[node name="Rain" type="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0)
+amount = 1024
+sub_emitter = NodePath("Splash")
+lifetime = 4.0
+visibility_aabb = AABB(-4, -16, -4, 8, 32, 8)
+process_material = SubResource("ParticleProcessMaterial_vvi7l")
+draw_pass_1 = SubResource("QuadMesh_jmexp")
+
+[node name="Splash" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 500
+explosiveness = 1.0
+visibility_aabb = AABB(-4, -16, -4, 8, 32, 8)
+process_material = SubResource("ParticleProcessMaterial_u2ggn")
+draw_pass_1 = SubResource("QuadMesh_3w485")

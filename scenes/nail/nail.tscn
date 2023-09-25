@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk187fdnr4k5w"]
+
+[ext_resource type="Script" path="res://scenes/nail/nail.gd" id="1_s67h0"]
+[ext_resource type="PackedScene" uid="uid://cja7bhbvrf82g" path="res://assets/models/nail_model.tscn" id="2_wtw28"]
+[ext_resource type="AudioStream" uid="uid://do5s766k64yd8" path="res://assets/sfx/rotating.ogg" id="3_f1ihw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ncwq8"]
+radius = 0.4
+
+[node name="Nail" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19446.1, 0)
+collision_layer = 8
+collision_mask = 2
+velocity = Vector3(0, -557.737, 0)
+script = ExtResource("1_s67h0")
+
+[node name="Model" parent="." instance=ExtResource("2_wtw28")]
+transform = Transform3D(-1, 8.74263e-08, 0, -8.74228e-08, -1.00004, 0, 0, 0, 1.00004, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ncwq8")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_f1ihw")
+autoplay = true

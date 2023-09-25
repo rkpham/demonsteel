@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://4vx8b0xluwty"]
+
+[ext_resource type="Shader" path="res://scenes/ui/fade.gdshader" id="1_tumxw"]
+
+[resource]
+shader = ExtResource("1_tumxw")
+shader_parameter/left = 0.0
+shader_parameter/right = 0.0
+shader_parameter/skew = 0.1

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=2 format=3 uid="uid://dvc518tkq2bp3"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_u6s1c"]
+
+[resource]
+script = ExtResource("1_u6s1c")
+spawn_type = 1
+build_visuals = true
+collision_shape_type = 0
+classname = "Fake"
+description = "Brush that has no collision."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {}
+class_property_descriptions = {}
+meta_properties = {}
+node_class = "StaticBody3D"
+transient_node = false
