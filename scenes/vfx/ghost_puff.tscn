@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://dg4yrv65gd7uc"]
 
-[ext_resource type="Script" path="res://scenes/enemies/ghost/ghost_puff.gd" id="1_c2cy5"]
-[ext_resource type="Texture2D" uid="uid://dyotshwvn82f2" path="res://resources/textures/puff.tres" id="2_h2eqy"]
-[ext_resource type="AudioStream" uid="uid://b1h1rp0h2oaso" path="res://assets/sfx/fluff.ogg" id="2_v4r66"]
+[ext_resource type="Script" path="res://scenes/vfx/ghost_puff.gd" id="1_qvf5s"]
+[ext_resource type="Texture2D" uid="uid://dyotshwvn82f2" path="res://resources/textures/puff.tres" id="2_gn3yy"]
+[ext_resource type="AudioStream" uid="uid://b1h1rp0h2oaso" path="res://assets/sfx/fluff.ogg" id="3_lnx88"]
 
 [sub_resource type="Gradient" id="Gradient_d3a4i"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.490196)
@@ -36,7 +36,7 @@ turbulence_influence_max = 0.04
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_h2eqy")
+albedo_texture = ExtResource("2_gn3yy")
 billboard_mode = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_wbocd"]
@@ -90,7 +90,7 @@ material = SubResource("StandardMaterial3D_vf04v")
 size = Vector2(0.1, 0.1)
 
 [node name="GhostPuff" type="Node3D"]
-script = ExtResource("1_c2cy5")
+script = ExtResource("1_qvf5s")
 
 [node name="SmokePuff" type="GPUParticles3D" parent="."]
 emitting = false
@@ -110,5 +110,5 @@ process_material = SubResource("ParticleProcessMaterial_pien1")
 draw_pass_1 = SubResource("QuadMesh_hnv5t")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("2_v4r66")
+stream = ExtResource("3_lnx88")
 autoplay = true

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2p3sy6a6oc2c"]
+[gd_scene load_steps=9 format=3 uid="uid://c2p3sy6a6oc2c"]
 
 [ext_resource type="Script" path="res://scenes/enemies/ghost/ghost.gd" id="1_xgmts"]
 [ext_resource type="Script" path="res://src/state_machine/state_machine.gd" id="2_8oeak"]
 [ext_resource type="PackedScene" uid="uid://cja7bhbvrf82g" path="res://assets/models/nail_model.tscn" id="2_qb2na"]
 [ext_resource type="PackedScene" uid="uid://d3uylqvkt8xck" path="res://assets/models/ghostie.tscn" id="3_0ikml"]
 [ext_resource type="Script" path="res://scenes/enemies/ghost/ghost_idle.gd" id="3_cngyr"]
+[ext_resource type="Script" path="res://scenes/enemies/ghost/ghost_reposition.gd" id="4_85e5l"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r0jr3"]
 
@@ -23,6 +24,9 @@ node = NodePath("..")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("3_cngyr")
+
+[node name="Reposition" type="Node" parent="StateMachine"]
+script = ExtResource("4_85e5l")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 

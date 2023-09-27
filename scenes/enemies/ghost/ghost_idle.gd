@@ -1,5 +1,7 @@
 class_name GhostIdle extends State
 
+var rage: float = 0.0
+
 ## Called when a state is entered.
 func enter() -> void:
 	node.anim.play("Idle")
@@ -14,9 +16,6 @@ func run_physics(delta) -> void:
 	if not node.is_on_floor():
 		node.velocity.y -= node.gravity * delta
 	
-#	var targ_dir = Vector3.ZERO
-#	var direction = (node.transform.basis * Vector3(targ_dir.x, 0, targ_dir.y)).normalized()
-	
 	if node.target:
 		var horiz_pos = Vector2(node.global_position.x, node.global_position.z)
 		var target_pos = get_tree().get_first_node_in_group("player").global_position
@@ -25,18 +24,13 @@ func run_physics(delta) -> void:
 			node.rotation.y = lerp_angle(node.rotation.y, -PI / 2 - (target_horiz_pos - horiz_pos).angle(), delta * 4.0)
 		node.sight_cast.target_position = node.to_local(target_pos)
 	
-#	var horiz_targ_vel = Vector2(direction.x, direction.z) * node.SPEED
+	if node.alert:
+		rage += delta
+	else:
+		rage = 0.0
 	
-#	if node.is_on_floor():
-#		if targ_dir.length_squared() > 0:
-#			horiz_vel = horiz_vel.move_toward(horiz_targ_vel, node.ACCEL * delta)
-#		else:
-#			horiz_vel = horiz_vel.move_toward(Vector2.ZERO, node.FRICTION * delta)
-#	else:
-#		if targ_dir.length_squared() > 0:
-#			horiz_vel = horiz_vel.move_toward(horiz_targ_vel, node.AIR_ACCEL * delta)
-#		else:
-#			horiz_vel = horiz_vel.move_toward(Vector2.ZERO, node.AIR_FRICTION * delta)
+	if rage > 2.0:
+		state_machine.enter_state("Reposition")
 
 	var horiz_vel = Vector2(node.velocity.x, node.velocity.z)
 	horiz_vel = horiz_vel.move_toward(Vector2.ZERO, node.FRICTION * delta)

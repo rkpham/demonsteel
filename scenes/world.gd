@@ -9,7 +9,7 @@ func _ready() -> void:
 	Game.player_died.connect(reload_level)
 	Game.exit_reached.connect(change_level)
 	Game.level_loaded.connect(change_level)
-	change_level("tutorial")
+	change_level("level1")
 
 
 func reload_level() -> void:

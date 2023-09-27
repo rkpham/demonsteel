@@ -15,3 +15,4 @@ reflected_light_source = 2
 ssao_enabled = true
 glow_enabled = true
 volumetric_fog_enabled = true
+volumetric_fog_density = 0.02

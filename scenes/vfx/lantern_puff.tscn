@@ -19,42 +19,43 @@ curve = SubResource("Curve_ua7pk")
 emission_shape = 1
 emission_sphere_radius = 0.2
 direction = Vector3(0, 0, -1)
+spread = 60.0
 gravity = Vector3(0, 1.5, 0)
-initial_velocity_min = 0.2
-initial_velocity_max = 2.0
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
 scale_max = 2.0
 scale_curve = SubResource("CurveTexture_0kfgx")
 color_ramp = SubResource("GradientTexture1D_fm3s7")
 
-[sub_resource type="Gradient" id="Gradient_jc2yj"]
+[sub_resource type="Gradient" id="Gradient_7p6ix"]
 interpolation_mode = 2
-colors = PackedColorArray(1, 0.556863, 1, 1, 1, 0, 1, 0)
+colors = PackedColorArray(1, 0, 1, 1, 1, 0, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_8ylaa"]
-gradient = SubResource("Gradient_jc2yj")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1cop0"]
+gradient = SubResource("Gradient_7p6ix")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 metadata/_snap_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ugj1k"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_os7pa"]
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = SubResource("GradientTexture2D_8ylaa")
+albedo_texture = SubResource("GradientTexture2D_1cop0")
 billboard_mode = 3
 billboard_keep_scale = true
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="QuadMesh" id="QuadMesh_lqcje"]
-material = SubResource("StandardMaterial3D_ugj1k")
+[sub_resource type="QuadMesh" id="QuadMesh_afm3i"]
+material = SubResource("StandardMaterial3D_os7pa")
 size = Vector2(0.5, 0.5)
 
 [sub_resource type="Gradient" id="Gradient_7xohs"]
-offsets = PackedFloat32Array(0, 0.771654, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.721569, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.65748, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.470588, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_6o6or"]
 gradient = SubResource("Gradient_7xohs")
@@ -64,7 +65,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
 point_count = 1
 
 [sub_resource type="Curve" id="Curve_p5ufi"]
-_data = [Vector2(0, 0.557895), 0.0, -1.64807, 0, 0, Vector2(1, 0.0631579), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.926316), 0.0, -1.64807, 0, 0, Vector2(1, 0.0631579), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_1mrvf"]
@@ -97,9 +98,10 @@ vertex_color_use_as_albedo = true
 [sub_resource type="CylinderMesh" id="CylinderMesh_ky3am"]
 lightmap_size_hint = Vector2i(4, 6)
 material = SubResource("StandardMaterial3D_0cgxb")
-top_radius = 0.02
+top_radius = 0.05
 bottom_radius = 0.0
 height = 0.4
+radial_segments = 4
 cap_bottom = false
 
 [node name="SmokePuff" type="GPUParticles3D"]
@@ -109,7 +111,7 @@ lifetime = 2.0
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_kg2ty")
-draw_pass_1 = SubResource("QuadMesh_lqcje")
+draw_pass_1 = SubResource("QuadMesh_afm3i")
 script = ExtResource("1_dm622")
 
 [node name="Sparks" type="GPUParticles3D" parent="."]

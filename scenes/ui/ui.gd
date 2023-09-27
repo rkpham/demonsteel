@@ -57,25 +57,26 @@ func _on_show_message(msg: String, time: float) -> void:
 
 
 func _on_start_up() -> void:
-	$MainMenu/GodotIcon.show()
-	$MainMenu/Bell.play()
-	await get_tree().create_timer(START_UP_MULT).timeout
-	$MainMenu/GodotIcon.hide()
-	
-	await get_tree().create_timer(START_UP_MULT).timeout
-	$MainMenu/Author.show()
-	$MainMenu/Bell.play()
-	await get_tree().create_timer(START_UP_MULT).timeout
-	$MainMenu/Author.hide()
-	
-	await get_tree().create_timer(START_UP_MULT).timeout
-	$MainMenu/Title.show()
-	$MainMenu/Bell.play()
-	await get_tree().create_timer(START_UP_MULT).timeout
-	$MainMenu/Title.hide()
-	
-	await get_tree().create_timer(START_UP_MULT).timeout
+#	$MainMenu/GodotIcon.show()
+#	$MainMenu/Bell.play()
+#	await get_tree().create_timer(START_UP_MULT).timeout
+#	$MainMenu/GodotIcon.hide()
+#
+#	await get_tree().create_timer(START_UP_MULT).timeout
+#	$MainMenu/Author.show()
+#	$MainMenu/Bell.play()
+#	await get_tree().create_timer(START_UP_MULT).timeout
+#	$MainMenu/Author.hide()
+#
+#	await get_tree().create_timer(START_UP_MULT).timeout
+#	$MainMenu/Title.show()
+#	$MainMenu/Bell.play()
+#	await get_tree().create_timer(START_UP_MULT).timeout
+#	$MainMenu/Title.hide()
+#
+#	await get_tree().create_timer(START_UP_MULT).timeout
 	$MainMenu.hide()
+	pass
 
 
 func _on_player_death() -> void:

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://4kdvywy111sh"]
+
+[ext_resource type="Script" path="res://scenes/enemies/boulder/boulder.gd" id="1_8whl1"]
+[ext_resource type="PackedScene" uid="uid://cja7bhbvrf82g" path="res://assets/models/nail_model.tscn" id="2_b6kih"]
+[ext_resource type="PackedScene" uid="uid://bwrh8gnansf3o" path="res://assets/models/boulder.glb" id="3_sdx20"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_py5oq"]
+radius = 4.0
+
+[node name="Boulder" type="CharacterBody3D"]
+collision_layer = 7
+collision_mask = 3
+script = ExtResource("1_8whl1")
+
+[node name="NailModel" parent="." instance=ExtResource("2_b6kih")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_py5oq")
+
+[node name="boulder" parent="." instance=ExtResource("3_sdx20")]
+transform = Transform3D(-4, 0, -6.03983e-07, 0, 4, 0, 6.03983e-07, 0, -4, 0, 0, 0)

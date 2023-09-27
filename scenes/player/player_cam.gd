@@ -25,7 +25,7 @@ func _input(event: InputEvent) -> void:
 		event.relative *= sensitivity
 		rot.x -= event.relative.x
 		rot.y -= event.relative.y
-		rot.y = clamp(rot.y, -90, 90)
+		rot.y = clamp(rot.y, -89, 89)
 		
 		viewmodel_rot += event.relative
 		viewmodel_rot = viewmodel_rot.clamp(-MAX_VIEWMODEL_ROT, MAX_VIEWMODEL_ROT)

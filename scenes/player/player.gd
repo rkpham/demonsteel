@@ -3,7 +3,7 @@ class_name Player extends CharacterBody3D
 signal health_changed(health: int)
 
 const NAIL = preload("res://scenes/nail/nail.tscn")
-const NAIL_HIT = preload("res://scenes/nail/nail_hit_effect.tscn")
+const NAIL_HIT = preload("res://scenes/vfx/nail_hit_effect.tscn")
 const NAIL_IMPACT = preload("res://scenes/nail/nail_impact.tscn")
 const SMOKE_PUFF = preload("res://scenes/vfx/smoke_puff.tscn")
 
@@ -38,6 +38,7 @@ var tilt_targ: Vector2 = Vector2.ZERO
 var walk_cycle: float = 0.0
 
 var checkpoints: Array[Checkpoint] = []
+var keys = 0
 
 @export var properties: Dictionary:
 	get:
@@ -261,8 +262,8 @@ func kick() -> void:
 		var new_smoke_puff = SMOKE_PUFF.instantiate()
 		get_parent().add_child(new_smoke_puff)
 		new_smoke_puff.global_position = wall_jump_raycast.get_collision_point()
-		if surface_normal != Vector3.UP:
-			new_smoke_puff.look_at(new_smoke_puff.global_position + surface_normal, Vector3.DOWN)
+		if surface_normal.dot(Vector3.UP) > 0.001:
+			new_smoke_puff.look_at(new_smoke_puff.global_position + surface_normal, Vector3.UP)
 		new_smoke_puff.emitting = true
 		wall_jumped = true
 		velocity += Vector3(bounce.x, 0, bounce.z)
@@ -270,21 +271,36 @@ func kick() -> void:
 
 
 func fire_nail() -> void:
-	var hit_enemy: bool = false
-	if nail_cast.is_colliding():
-		for collider_id in nail_cast.get_collision_count():
-			var obj_hit = nail_cast.get_collider(collider_id)
-			if not obj_hit.is_in_group("nail_ignore") and obj_hit.is_in_group("ent"):
-				obj_hit.hit(-camera.global_transform.basis.z)
-				hit_enemy = true
-	if nail_raycast.is_colliding() and not hit_enemy:
+	var hit_ground = null
+	var hit_enemy = null
+	if nail_raycast.is_colliding():
 		var obj_hit = nail_raycast.get_collider()
 		if obj_hit.is_in_group("env"):
-			var hit_pos = nail_raycast.get_collision_point()
-			var new_impact = NAIL_IMPACT.instantiate()
-			get_parent().add_child(new_impact)
-			new_impact.global_position = hit_pos
-			new_impact.global_rotation = camera.global_rotation
+			hit_ground = nail_raycast.get_collision_point()
+	if nail_cast.is_colliding():
+		var obj_hit = nail_cast.get_collider(0)
+		if obj_hit.is_in_group("ent"):
+			hit_enemy = obj_hit
+	
+	if hit_ground and hit_enemy:
+		var ground_dist = (hit_ground - global_position).length()
+		var enemy_dist = (hit_enemy.global_position - global_position).length()
+		if ground_dist < enemy_dist:
+			nail_impact(hit_ground)
+		else:
+			hit_enemy.hit(-camera.global_transform.basis.z)
+	elif hit_ground:
+		nail_impact(hit_ground)
+	elif hit_enemy:
+		hit_enemy.hit(-camera.global_transform.basis.z)
+	# make it so it doesn't apply nail to every enemy in shapecast, make it so that closest gets hit by nail (ground or enemy)
+
+
+func nail_impact(pos: Vector3):
+	var new_impact = NAIL_IMPACT.instantiate()
+	get_parent().add_child(new_impact)
+	new_impact.global_position = pos
+	new_impact.global_rotation = camera.global_rotation
 
 
 func nail_flash() -> void:
@@ -311,6 +327,11 @@ func hit(amount: int, reset: bool) -> void:
 			center += point
 		center /= points.size()
 		set_deferred("global_position", center)
+
+
+func heal(amount: int) -> void:
+	health += amount
+	health_changed.emit(health)
 
 
 func jump() -> void:

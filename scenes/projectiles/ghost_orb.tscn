@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhedndndqmjh5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ttax0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ww7g"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_uu6ie"]
+material = SubResource("StandardMaterial3D_6ww7g")
+radial_segments = 8
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11pxg"]
+shading_mode = 0
+grow = true
+grow_amount = -0.05
+
+[sub_resource type="SphereMesh" id="SphereMesh_ll01m"]
+material = SubResource("StandardMaterial3D_11pxg")
+flip_faces = true
+radial_segments = 8
+rings = 6
+
+[node name="GhostOrb" type="Node3D"]
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_ttax0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_uu6ie")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ll01m")

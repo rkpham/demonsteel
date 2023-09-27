@@ -6,7 +6,7 @@ enum BEHAVIOR {
 }
 
 const GHOST_BODY = preload("res://scenes/enemies/ghost/ghost_body.tscn")
-const GHOST_PUFF = preload("res://scenes/enemies/ghost/ghost_puff.tscn")
+const GHOST_PUFF = preload("res://scenes/vfx/ghost_puff.tscn")
 const ACCEL = 48
 const FRICTION = 12
 const AIR_ACCEL = 32
