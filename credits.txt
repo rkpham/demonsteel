@@ -1,0 +1,25 @@
+programs:
+fl studio: SFX
+aseprite: ART
+krita: ART
+paint.net: ART
+godot engine: ENGINE
+trenchbroom: MAP EDITOR
+qodot: TRENCHBROOM INTEGRATION
+godot jolt: PHYSICS PLUGIN
+blender: MODELS
+
+textures:
+sketchuptextureclub.com: FREE TEXTURES
+https://meye.dk/: VEGETATION TEXTURES
+
+sfx:
+https://freesound.org/people/InspectorJ/sounds/394414/
+https://freesound.org/people/flarn2006/sounds/147913/
+https://freesound.org/people/CheChoDj/sounds/609353/
+https://freesound.org/people/jorickhoofd/sounds/176664/
+https://freesound.org/people/Benboncan/sounds/60649/
+https://freesound.org/people/michorvath/sounds/270588/
+https://freesound.org/people/_stubb/sounds/389618/
+https://freesound.org/people/leonelmail/sounds/330635/
+https://freesound.org/people/vmgraw/sounds/235614/

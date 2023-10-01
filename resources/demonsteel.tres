@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="QodotFGDFile" load_steps=13 format=3 uid="uid://cr5spkm7y3gyn"]
+[gd_resource type="Resource" script_class="QodotFGDFile" load_steps=19 format=3 uid="uid://cr5spkm7y3gyn"]
 
 [ext_resource type="Resource" uid="uid://pllcg2l4154t" path="res://resources/entities/ghost.tres" id="1_ljonm"]
 [ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_file.gd" id="2_87bon"]
@@ -12,6 +12,12 @@
 [ext_resource type="Resource" uid="uid://csce2uhwe33b1" path="res://resources/entities/messagezone.tres" id="9_0fuh6"]
 [ext_resource type="Resource" uid="uid://ib2rn1eorreq" path="res://resources/entities/lantern.tres" id="10_lkxhn"]
 [ext_resource type="Resource" uid="uid://w1m3hsf71i6t" path="res://resources/entities/bandage.tres" id="11_luoac"]
+[ext_resource type="Resource" uid="uid://cbemqp6816ht5" path="res://resources/entities/key.tres" id="12_gsa7g"]
+[ext_resource type="Resource" uid="uid://ro52nquu1jn4" path="res://resources/entities/gate.tres" id="13_hocsk"]
+[ext_resource type="Resource" uid="uid://mawgb521ey3q" path="res://resources/entities/tree.tres" id="14_jxdvh"]
+[ext_resource type="Resource" uid="uid://ewakg35bl7a4" path="res://resources/entities/streetlamp.tres" id="15_aat2q"]
+[ext_resource type="Resource" uid="uid://dl2r0uwnl8h33" path="res://resources/entities/angryghost.tres" id="16_ic3oi"]
+[ext_resource type="Resource" uid="uid://mwn3gyhk6tug" path="res://resources/entities/end.tres" id="17_yg8p3"]
 
 [resource]
 script = ExtResource("2_87bon")
@@ -19,4 +25,4 @@ export_file = false
 target_folder = "E:/Users/Khopam/Downloads/~ Programs/GameDev/TrenchBroom-Win64-v2023.1-RC1-Release/games/Godot"
 fgd_name = "Godot"
 base_fgd_files = Array[Resource]([])
-entity_definitions = Array[Resource]([ExtResource("1_ljonm"), ExtResource("2_boh30"), ExtResource("3_xec8y"), ExtResource("4_ig1hj"), ExtResource("5_j6mv2"), ExtResource("6_cmkiv"), ExtResource("7_oo10e"), ExtResource("8_ewmgd"), ExtResource("9_0fuh6"), ExtResource("10_lkxhn"), ExtResource("11_luoac")])
+entity_definitions = Array[Resource]([ExtResource("1_ljonm"), ExtResource("2_boh30"), ExtResource("3_xec8y"), ExtResource("4_ig1hj"), ExtResource("5_j6mv2"), ExtResource("6_cmkiv"), ExtResource("7_oo10e"), ExtResource("8_ewmgd"), ExtResource("9_0fuh6"), ExtResource("10_lkxhn"), ExtResource("11_luoac"), ExtResource("12_gsa7g"), ExtResource("13_hocsk"), ExtResource("14_jxdvh"), ExtResource("15_aat2q"), ExtResource("16_ic3oi"), ExtResource("17_yg8p3")])

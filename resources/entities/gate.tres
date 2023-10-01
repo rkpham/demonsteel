@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=3 format=3 uid="uid://ro52nquu1jn4"]
+
+[ext_resource type="PackedScene" uid="uid://dwjh5p4v4ah7l" path="res://scenes/env/gate.tscn" id="1_d4afy"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="2_5k7de"]
+
+[resource]
+script = ExtResource("2_5k7de")
+scene_file = ExtResource("1_d4afy")
+classname = "Gate"
+description = "Gate openable by a key."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"blind": 0,
+"rotation": 0
+}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(1, 0.662745, 0, 1),
+"size": AABB(-48, -8, 0, 48, 8, 96)
+}
+node_class = ""
+transient_node = false

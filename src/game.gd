@@ -4,11 +4,13 @@ signal hit_lag_started()
 signal hit_lag_ended()
 signal player_died()
 signal started_up()
+signal game_ended()
 signal exit_reached(level: String)
 signal player_added(player: Player)
 signal level_loaded(level: String)
 signal loading_finished()
 signal popup_msg(msg: String, time: float)
+signal sens_changed(value: float)
 
 var hit_lag_left: int = 0
 
@@ -19,16 +21,16 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if hit_lag_left <= 0:
+	if hit_lag_left == 0:
 		get_tree().paused = false
+		hit_lag_left = -1
 		hit_lag_ended.emit()
 	if hit_lag_left > 0:
 		hit_lag_left -= 1
 
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().quit()
+	pass
 
 
 func display_message(msg: String, time: float) -> void:
@@ -55,3 +57,7 @@ func load_next_level(level: String) -> void:
 
 func start_up() -> void:
 	started_up.emit()
+
+
+func end_game() -> void:
+	game_ended.emit()

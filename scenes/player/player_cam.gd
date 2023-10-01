@@ -14,21 +14,26 @@ var viewmodel_rot = Vector2()
 @onready var hammer_anim = $Camera3D/Viewmodel/Hammer/AnimationPlayer
 @onready var leg_model = $Camera3D/Viewmodel/Leg
 @onready var kick_anim = $Camera3D/Viewmodel/Leg/AnimationPlayer
+@onready var hand_model = $Camera3D/Viewmodel/Hand
+@onready var hand_anim = $Camera3D/Viewmodel/Hand/AnimationPlayer
 
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	hammer_anim.play("Idle")
+	Game.sens_changed.connect(_sens_changed)
+
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		event.relative *= sensitivity
-		rot.x -= event.relative.x
-		rot.y -= event.relative.y
-		rot.y = clamp(rot.y, -89, 89)
-		
-		viewmodel_rot += event.relative
-		viewmodel_rot = viewmodel_rot.clamp(-MAX_VIEWMODEL_ROT, MAX_VIEWMODEL_ROT)
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		if event is InputEventMouseMotion:
+			event.relative *= sensitivity
+			rot.x -= event.relative.x
+			rot.y -= event.relative.y
+			rot.y = clamp(rot.y, -89, 89)
+			
+			viewmodel_rot += event.relative
+			viewmodel_rot = viewmodel_rot.clamp(-MAX_VIEWMODEL_ROT, MAX_VIEWMODEL_ROT)
 
 
 func _process(delta: float) -> void:
@@ -49,6 +54,22 @@ func play_swing_anim(hit_nail) -> void:
 	hammer_anim.play("Idle")
 
 
+func play_toss_anim() -> void:
+	hand_model.show()
+	hand_anim.stop()
+	hand_anim.play("Toss")
+	await hand_anim.animation_finished
+	hand_model.hide()
+
+
+func play_pull_anim() -> void:
+	hand_model.show()
+	hand_anim.stop()
+	hand_anim.play("Pull")
+	await hand_anim.animation_finished
+	hand_model.hide()
+
+
 func play_kick_anim(hit_nail) -> void:
 	leg_model.show()
 	kick_anim.stop()
@@ -64,3 +85,7 @@ func set_cam_rot(vec: Vector2, offset: Vector3) -> void:
 		body.rotation.y = deg_to_rad(vec.x + offset.y)
 	rotation.x = deg_to_rad(vec.y + offset.z)
 	rotation.z = deg_to_rad(offset.x)
+
+
+func _sens_changed(sens: float) -> void:
+	sensitivity = sens

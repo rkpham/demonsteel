@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4qfb4vchu3hd"]
+[gd_scene load_steps=4 format=3 uid="uid://b4qfb4vchu3hd"]
 
 [ext_resource type="PackedScene" uid="uid://r13os5fqdpxw" path="res://assets/models/hammer.glb" id="1_q4a1s"]
 [ext_resource type="PackedScene" uid="uid://j8nwc1mndb40" path="res://assets/models/leg.glb" id="2_onj4s"]
+[ext_resource type="PackedScene" uid="uid://bwsov4rxf6bjt" path="res://assets/models/handr.glb" id="3_pd036"]
 
 [node name="Viewmodel" type="Node3D"]
 
@@ -16,10 +17,6 @@ cast_shadow = 0
 
 [node name="AnimationPlayer" parent="Hammer" index="1"]
 playback_default_blend_time = 0.2
-
-[node name="Camera3D" type="Camera3D" parent="."]
-fov = 90.0
-near = 0.005
 
 [node name="Leg" parent="." instance=ExtResource("2_onj4s")]
 visible = false
@@ -36,5 +33,35 @@ bones/3/rotation = Quaternion(-0.0266505, 0.0323945, -0.532059, 0.845667)
 [node name="Leg" parent="Leg/Armature/Skeleton3D" index="0"]
 cast_shadow = 0
 
+[node name="Hand" parent="." instance=ExtResource("3_pd036")]
+
+[node name="Skeleton3D" parent="Hand/Armature" index="0"]
+bones/0/position = Vector3(-0.899478, -1.40144, -0.291562)
+bones/0/rotation = Quaternion(-0.213445, -0.407032, 0.877693, 0.135727)
+bones/1/rotation = Quaternion(0.288854, 0.145522, -0.145135, 0.935052)
+bones/2/rotation = Quaternion(-0.0898486, 0.095573, 0.017233, 0.991209)
+bones/3/rotation = Quaternion(-0.0096183, 0.00633816, 0.0529538, 0.998531)
+bones/4/rotation = Quaternion(-0.00934754, -0.00761109, -0.0231464, 0.999659)
+bones/5/rotation = Quaternion(-0.120969, 0.0521062, 0.0200828, 0.991084)
+bones/6/rotation = Quaternion(0.00766462, -0.00314243, -0.00565237, 0.99995)
+bones/7/rotation = Quaternion(-0.0331582, 0.00166411, 0.00734128, 0.999422)
+bones/8/rotation = Quaternion(-0.000999331, -0.00903248, -0.019431, 0.99977)
+bones/9/rotation = Quaternion(-0.0668913, -0.00528876, -0.00843989, 0.997711)
+bones/10/rotation = Quaternion(0.00196107, -3.92394e-05, 0.00160833, 0.999997)
+bones/11/rotation = Quaternion(-0.0667368, -0.00909556, -0.0107975, 0.997671)
+bones/12/rotation = Quaternion(-0.0204453, -0.0238325, -0.0549951, 0.997993)
+bones/13/rotation = Quaternion(0.00069006, 0.000339806, 0.0155723, 0.999878)
+bones/14/rotation = Quaternion(-0.444451, -0.0952395, -0.331688, 0.826666)
+bones/15/rotation = Quaternion(0.0258123, 0.0193972, 0.0639069, 0.997433)
+bones/16/rotation = Quaternion(0.0870534, 0.0155528, -0.171973, 0.981124)
+
+[node name="AnimationPlayer" parent="Hand" index="1"]
+playback_default_blend_time = 0.02
+
+[node name="Camera3D" type="Camera3D" parent="."]
+fov = 90.0
+near = 0.005
+
 [editable path="Hammer"]
 [editable path="Leg"]
+[editable path="Hand"]

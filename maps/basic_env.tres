@@ -1,6 +1,8 @@
 [gd_resource type="Environment" load_steps=3 format=3 uid="uid://cw6rktq6ou8xl"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_faq17"]
+rayleigh_color = Color(0.188235, 0.298039, 0.6, 1)
+mie_color = Color(0.929412, 0.654902, 0.498039, 1)
 
 [sub_resource type="Sky" id="Sky_3qc0f"]
 sky_material = SubResource("PhysicalSkyMaterial_faq17")
@@ -8,11 +10,6 @@ sky_material = SubResource("PhysicalSkyMaterial_faq17")
 [resource]
 background_mode = 2
 sky = SubResource("Sky_3qc0f")
-ambient_light_source = 3
-ambient_light_color = Color(0.807843, 0.807843, 0.807843, 1)
-ambient_light_energy = 3.0
 reflected_light_source = 2
 ssao_enabled = true
 glow_enabled = true
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.02

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=3 format=3 uid="uid://ewakg35bl7a4"]
+
+[ext_resource type="PackedScene" uid="uid://c3fjuffbq72dt" path="res://scenes/env/streetlamp.tscn" id="1_2ao4y"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="2_h5alq"]
+
+[resource]
+script = ExtResource("2_h5alq")
+scene_file = ExtResource("1_2ao4y")
+classname = "Streetlamp"
+description = "Streetlamp decorative."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"blind": 0
+}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(0.380392, 0.380392, 0.380392, 1),
+"size": AABB(-8, -8, 0, 8, 8, 64)
+}
+node_class = "StaticBody3D"
+transient_node = false

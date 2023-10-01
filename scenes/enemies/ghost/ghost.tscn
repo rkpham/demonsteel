@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2p3sy6a6oc2c"]
+[gd_scene load_steps=10 format=3 uid="uid://c2p3sy6a6oc2c"]
 
 [ext_resource type="Script" path="res://scenes/enemies/ghost/ghost.gd" id="1_xgmts"]
 [ext_resource type="Script" path="res://src/state_machine/state_machine.gd" id="2_8oeak"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d3uylqvkt8xck" path="res://assets/models/ghostie.tscn" id="3_0ikml"]
 [ext_resource type="Script" path="res://scenes/enemies/ghost/ghost_idle.gd" id="3_cngyr"]
 [ext_resource type="Script" path="res://scenes/enemies/ghost/ghost_reposition.gd" id="4_85e5l"]
+[ext_resource type="Script" path="res://scenes/enemies/ghost/ghost_hit.gd" id="5_pweo2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r0jr3"]
 
@@ -28,16 +29,34 @@ script = ExtResource("3_cngyr")
 [node name="Reposition" type="Node" parent="StateMachine"]
 script = ExtResource("4_85e5l")
 
+[node name="Hit" type="Node" parent="StateMachine"]
+script = ExtResource("5_pweo2")
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_r0jr3")
 
 [node name="NailModel" parent="." instance=ExtResource("2_qb2na")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215663, 0)
 visible = false
 
 [node name="Model" parent="." instance=ExtResource("3_0ikml")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.564936, 0)
+
+[node name="Skeleton3D" parent="Model/Armature" index="0"]
+bones/0/rotation = Quaternion(0.717951, -0.0225913, 0.69536, 0.0225914)
+bones/1/rotation = Quaternion(4.73492e-08, 8.05045e-09, -0.146532, 0.989206)
+bones/2/rotation = Quaternion(5.7784e-08, 7.13383e-09, -0.203254, 0.979126)
+bones/3/rotation = Quaternion(1.06572e-07, 1.25745e-08, -0.354472, 0.935067)
+bones/4/rotation = Quaternion(6.69578e-08, 7.65231e-09, -0.228101, 0.973638)
+bones/5/rotation = Quaternion(0.325359, -3.17784e-07, -5.24936e-08, 0.94559)
+bones/6/rotation = Quaternion(3.7282e-08, -3.15828e-08, -2.61991e-10, 1)
+bones/7/rotation = Quaternion(-1.4812e-07, -0.945591, 0.325359, 7.99396e-08)
+bones/8/rotation = Quaternion(3.72675e-08, 4.01209e-09, -4.65587e-10, 1)
+
+[node name="AnimationPlayer" parent="Model" index="1"]
+playback_default_blend_time = 0.5
 
 [node name="Alert" type="Area3D" parent="."]
 
@@ -50,3 +69,5 @@ collision_mask = 2
 
 [connection signal="body_entered" from="Alert" to="." method="_on_alert_body_entered"]
 [connection signal="body_exited" from="Alert" to="." method="_on_alert_body_exited"]
+
+[editable path="Model"]

@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://bshpwp2sf7q4p"]
+
+[ext_resource type="Script" path="res://scenes/enemies/angryghost/angry_ghost.gd" id="1_cunkf"]
+[ext_resource type="Script" path="res://src/state_machine/state_machine.gd" id="2_e42ik"]
+[ext_resource type="Script" path="res://scenes/enemies/angryghost/angry_ghost_idle.gd" id="3_uegks"]
+[ext_resource type="Script" path="res://scenes/enemies/angryghost/angry_ghost_reposition.gd" id="4_he0mw"]
+[ext_resource type="Script" path="res://scenes/enemies/ghost/ghost_hit.gd" id="4_o8tqc"]
+[ext_resource type="PackedScene" uid="uid://cja7bhbvrf82g" path="res://assets/models/nail_model.tscn" id="4_w6tyb"]
+[ext_resource type="Script" path="res://scenes/enemies/angryghost/angry_ghost_swing.gd" id="6_7lr6d"]
+[ext_resource type="PackedScene" uid="uid://bq0unv8pyfkb3" path="res://assets/models/angryghost.tscn" id="8_ikxaj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r0jr3"]
+radius = 1.0
+height = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ryihr"]
+radius = 16.0
+
+[node name="Ghost" type="CharacterBody3D" groups=["ent"]]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource("1_cunkf")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("node")]
+script = ExtResource("2_e42ik")
+default_state = "Idle"
+node = NodePath("..")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_uegks")
+
+[node name="Reposition" type="Node" parent="StateMachine"]
+script = ExtResource("4_he0mw")
+
+[node name="Hit" type="Node" parent="StateMachine"]
+script = ExtResource("4_o8tqc")
+
+[node name="Swing" type="Node" parent="StateMachine"]
+script = ExtResource("6_7lr6d")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = -0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_r0jr3")
+
+[node name="Model" parent="." instance=ExtResource("8_ikxaj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+
+[node name="NailModel" parent="." instance=ExtResource("4_w6tyb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215663, 0)
+visible = false
+
+[node name="Alert" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Alert"]
+shape = SubResource("SphereShape3D_ryihr")
+
+[node name="Sight" type="RayCast3D" parent="."]
+collision_mask = 2
+
+[connection signal="body_entered" from="Alert" to="." method="_on_alert_body_entered"]
+[connection signal="body_exited" from="Alert" to="." method="_on_alert_body_exited"]

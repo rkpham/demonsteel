@@ -1,15 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://csbl3duvwfyu"]
+[gd_scene load_steps=7 format=3 uid="uid://csbl3duvwfyu"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_2ey38"]
 [ext_resource type="PackedScene" uid="uid://8bspu37ahams" path="res://maps/tutorial/tutorial.tscn" id="2_2i22v"]
 [ext_resource type="Script" path="res://addons/smoother/smoother.gd" id="2_dmbrt"]
 [ext_resource type="PackedScene" uid="uid://rdy2oaju5b4e" path="res://maps/test/test.tscn" id="3_7oo78"]
 [ext_resource type="PackedScene" uid="uid://dkphcc84p2t7u" path="res://maps/level1/level1.tscn" id="4_sw7or"]
+[ext_resource type="PackedScene" uid="uid://boh5yro4eot0n" path="res://maps/level2/level2.tscn" id="5_tt2mc"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_2ey38")
 levels = {
 "level1": ExtResource("4_sw7or"),
+"level2": ExtResource("5_tt2mc"),
 "test": ExtResource("3_7oo78"),
 "tutorial": ExtResource("2_2i22v")
 }

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=3 format=3 uid="uid://dl2r0uwnl8h33"]
+
+[ext_resource type="PackedScene" uid="uid://bshpwp2sf7q4p" path="res://scenes/enemies/angryghost/angry_ghost.tscn" id="1_vab3g"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="2_1p2ni"]
+
+[resource]
+script = ExtResource("2_1p2ni")
+scene_file = ExtResource("1_vab3g")
+classname = "AngryGhostEnemy"
+description = "Ghost but angry."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"blind": 0
+}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(1, 0, 0, 1),
+"size": AABB(-16, -16, -24, 16, 16, 24)
+}
+node_class = ""
+transient_node = false

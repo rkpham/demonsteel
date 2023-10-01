@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-@onready var mesh = $Model/Armature/Skeleton3D/Cube_006
+@onready var mesh = $Model/Armature/Skeleton3D/Ghost
 
 func _ready() -> void:
 	$Model/AnimationPlayer.play("Fling")

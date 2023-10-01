@@ -2,13 +2,16 @@ class_name GhostReposition extends State
 
 ## Called when a state is entered.
 func enter() -> void:
-	node.anim.play("Dash")
+	var num_retries = 0
+	get_random_position()
 	while not node.nav.is_target_reachable():
-		var range = 8.0
-		var r = range * sqrt(randf())
-		var theta = randf() * 2 * PI
-		var rand_point = Vector2(r * cos(theta), r * sin(theta))
-		node.nav.target_position = node.global_position + Vector3(rand_point.x, 0, rand_point.z)
+		if num_retries >= 32:
+			print("Ghost was unable to find a position.")
+			state_machine.enter_state("Idle")
+			return
+		get_random_position()
+		num_retries += 1
+	node.anim.play("Dash")
 
 ## Called in state machine's _process function.
 func run(delta) -> void:
@@ -23,11 +26,13 @@ func run_physics(delta) -> void:
 	var next_pos = node.nav.get_next_path_position()
 	var direction = (next_pos - node.global_position).normalized()
 	
+	var horiz_next_pos = Vector2(next_pos.x, next_pos.z)
 	var horiz_pos = Vector2(node.global_position.x, node.global_position.z)
-	var horiz_target = Vector2(node.nav.target_position.x, node.nav.target_position.z)
-	node.rotation.y = (horiz_target - horiz_pos).angle()
+	
+	node.rotation.y = lerp_angle(node.rotation.y, -PI / 2 - (horiz_next_pos - horiz_pos).angle(), delta * 4.0)
 	
 	if node.nav.is_target_reached():
+		node.velocity = Vector3.ZERO
 		state_machine.enter_state("Idle")
 	
 	var horiz_vel = Vector2(node.velocity.x, node.velocity.z)
@@ -45,3 +50,11 @@ func run_physics(delta) -> void:
 ## Called when the state exits.
 func exit() -> void:
 	pass
+
+
+func get_random_position() -> void:
+	var range = 8.0
+	var r = range
+	var theta = randf() * 2 * PI
+	var rand_point = Vector2(r * cos(theta), r * sin(theta))
+	node.nav.set_target_position(node.global_position + Vector3(rand_point.x, 0, rand_point.y))

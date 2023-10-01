@@ -5,6 +5,7 @@ var rage: float = 0.0
 ## Called when a state is entered.
 func enter() -> void:
 	node.anim.play("Idle")
+	rage = 0.0
 
 ## Called in state machine's _process function.
 func run(delta) -> void:
@@ -18,7 +19,7 @@ func run_physics(delta) -> void:
 	
 	if node.target:
 		var horiz_pos = Vector2(node.global_position.x, node.global_position.z)
-		var target_pos = get_tree().get_first_node_in_group("player").global_position
+		var target_pos = node.target.global_position
 		var target_horiz_pos = Vector2(target_pos.x, target_pos.z)
 		if node.alert:
 			node.rotation.y = lerp_angle(node.rotation.y, -PI / 2 - (target_horiz_pos - horiz_pos).angle(), delta * 4.0)

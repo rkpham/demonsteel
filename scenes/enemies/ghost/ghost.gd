@@ -11,7 +11,7 @@ const ACCEL = 48
 const FRICTION = 12
 const AIR_ACCEL = 32
 const AIR_FRICTION = 4
-const SPEED = 12.0
+const SPEED = 4.0
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var nailed = false
@@ -61,7 +61,7 @@ func hit(direction) -> void:
 	var new_ghost_puff = GHOST_PUFF.instantiate()
 	add_child(new_ghost_puff)
 	new_ghost_puff.emit()
-	hit_anim()
+	state_machine.enter_state("Hit")
 
 
 func kill(direction) -> bool:
@@ -71,12 +71,6 @@ func kill(direction) -> bool:
 	new_body.fling(-direction)
 	queue_free()
 	return true
-
-
-func hit_anim() -> void:
-	anim.play("Fling")
-	await get_tree().create_timer(1).timeout
-	anim.play("Idle")
 
 
 func dash() -> void:

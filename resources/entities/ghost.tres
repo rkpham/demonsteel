@@ -16,7 +16,7 @@ class_properties = {
 class_property_descriptions = {}
 meta_properties = {
 "color": Color(1, 0, 0, 1),
-"size": AABB(0, 0, -16, 16, 16, 16)
+"size": AABB(-16, -16, -16, 16, 16, 16)
 }
 node_class = ""
 transient_node = false

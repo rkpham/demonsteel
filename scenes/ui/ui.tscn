@@ -1,12 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://bdn51cwkjfwl0"]
+[gd_scene load_steps=24 format=3 uid="uid://bdn51cwkjfwl0"]
 
 [ext_resource type="Script" path="res://scenes/ui/ui.gd" id="1_bnu8e"]
 [ext_resource type="Material" uid="uid://4vx8b0xluwty" path="res://scenes/ui/fade.tres" id="2_1cxu4"]
 [ext_resource type="Texture2D" uid="uid://cbbv3mj6edu5d" path="res://addons/smoother/logo_large_monochrome_dark.png" id="3_0x5u3"]
 [ext_resource type="Texture2D" uid="uid://dxcbymh3s0l0w" path="res://assets/icons/health.png" id="3_85ndv"]
-[ext_resource type="Texture2D" uid="uid://dfsqsrtal5r8v" path="res://assets/icons/nail.png" id="3_n0ufx"]
 [ext_resource type="AudioStream" uid="uid://bhevu1vwxo0mi" path="res://assets/sfx/bell.ogg" id="4_xn4g1"]
 [ext_resource type="AudioStream" uid="uid://b5yyc5eqgwaqu" path="res://assets/sfx/ding.ogg" id="5_v5gyy"]
+[ext_resource type="AudioStream" uid="uid://t3fw5fhdehjn" path="res://assets/music/endtheme.ogg" id="7_wuocp"]
 
 [sub_resource type="SystemFont" id="SystemFont_xksyx"]
 font_names = PackedStringArray("MingLiU-ExtB")
@@ -24,6 +24,18 @@ subpixel_positioning = 0
 font = SubResource("SystemFont_xksyx")
 font_size = 48
 
+[sub_resource type="SystemFont" id="SystemFont_qhcrd"]
+font_names = PackedStringArray("MingLiU-ExtB")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_yegvx"]
+font = SubResource("SystemFont_qhcrd")
+font_size = 64
+
+[sub_resource type="SystemFont" id="SystemFont_sca5k"]
+font_names = PackedStringArray("MingLiU-ExtB")
+subpixel_positioning = 0
+
 [sub_resource type="SystemFont" id="SystemFont_ymbcb"]
 font_names = PackedStringArray("MingLiU-ExtB")
 subpixel_positioning = 0
@@ -31,12 +43,36 @@ subpixel_positioning = 0
 [sub_resource type="LabelSettings" id="LabelSettings_1rrai"]
 line_spacing = 0.0
 font = SubResource("SystemFont_ymbcb")
-font_size = 200
+font_size = 180
 
 [sub_resource type="LabelSettings" id="LabelSettings_vmft4"]
 line_spacing = 0.0
 font = SubResource("SystemFont_ymbcb")
 font_size = 160
+
+[sub_resource type="SystemFont" id="SystemFont_s4nk4"]
+font_names = PackedStringArray("MingLiU-ExtB")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_od0mf"]
+font = SubResource("SystemFont_s4nk4")
+font_size = 32
+
+[sub_resource type="SystemFont" id="SystemFont_mrtdp"]
+font_names = PackedStringArray("MingLiU-ExtB")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_5w2ne"]
+font = SubResource("SystemFont_mrtdp")
+font_size = 28
+
+[sub_resource type="SystemFont" id="SystemFont_dcqq5"]
+font_names = PackedStringArray("MingLiU-ExtB")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_8j0b0"]
+font = SubResource("SystemFont_dcqq5")
+font_size = 28
 
 [node name="UI" type="Control"]
 process_mode = 3
@@ -96,24 +132,6 @@ layout_mode = 2
 text = "100"
 label_settings = SubResource("LabelSettings_vtb3e")
 
-[node name="NailHUD" type="HBoxContainer" parent="HUD"]
-custom_minimum_size = Vector2(50, 100)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-
-[node name="NailIcon" type="TextureRect" parent="HUD/NailHUD"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("3_n0ufx")
-
-[node name="NailIcon2" type="TextureRect" parent="HUD/NailHUD"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-texture = ExtResource("3_n0ufx")
-
 [node name="Crosshair2" type="Control" parent="HUD"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -165,11 +183,95 @@ theme_override_font_sizes/font_size = 50
 horizontal_alignment = 1
 
 [node name="FPS" type="Label" parent="HUD"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "0"
 label_settings = SubResource("LabelSettings_vlhu3")
+
+[node name="Pause" type="Panel" parent="HUD"]
+visible = false
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="PauseVBox" type="VBoxContainer" parent="HUD/Pause/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="HUD/Pause/MarginContainer/PauseVBox"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_yegvx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SoundSetting" type="HBoxContainer" parent="HUD/Pause/MarginContainer/PauseVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/Pause/MarginContainer/PauseVBox/SoundSetting"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_qhcrd")
+theme_override_font_sizes/font_size = 0
+text = "Sound:"
+
+[node name="HSlider" type="HSlider" parent="HUD/Pause/MarginContainer/PauseVBox/SoundSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -10.0
+max_value = 10.0
+step = 0.5
+
+[node name="Sensitivity" type="HBoxContainer" parent="HUD/Pause/MarginContainer/PauseVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/Pause/MarginContainer/PauseVBox/Sensitivity"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_qhcrd")
+theme_override_font_sizes/font_size = 0
+text = "Sensitivity:"
+
+[node name="SensSlider" type="HSlider" parent="HUD/Pause/MarginContainer/PauseVBox/Sensitivity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.01
+max_value = 6.0
+step = 0.01
+value = 0.1
+
+[node name="BackButton" type="Button" parent="HUD/Pause/MarginContainer/PauseVBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = SubResource("SystemFont_sca5k")
+theme_override_font_sizes/font_size = 24
+text = "BACK"
+
+[node name="QuitButton" type="Button" parent="HUD/Pause/MarginContainer/PauseVBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = SubResource("SystemFont_sca5k")
+theme_override_font_sizes/font_size = 24
+text = "QUIT
+"
 
 [node name="Ding" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_v5gyy")
@@ -242,3 +344,351 @@ expand_mode = 1
 
 [node name="Bell" type="AudioStreamPlayer" parent="MainMenu"]
 stream = ExtResource("4_xn4g1")
+
+[node name="EndSlides" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="EndSlides"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="1" type="Control" parent="EndSlides"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="EndSlides/1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You enter the manor"
+label_settings = SubResource("LabelSettings_od0mf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="EndSlides/1"]
+wait_time = 4.0
+
+[node name="2" type="Control" parent="EndSlides"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="EndSlides/2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You search for what is bringing ghosts back into
+the land of the living"
+label_settings = SubResource("LabelSettings_od0mf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="EndSlides/2"]
+wait_time = 4.0
+
+[node name="3" type="Control" parent="EndSlides"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="EndSlides/3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Turns out, a dog was digging up graves for bones"
+label_settings = SubResource("LabelSettings_od0mf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="EndSlides/3"]
+wait_time = 4.0
+
+[node name="4" type="Control" parent="EndSlides"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="EndSlides/4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You lure the dog away with a bag of treats"
+label_settings = SubResource("LabelSettings_od0mf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="EndSlides/4"]
+wait_time = 3.0
+
+[node name="5" type="Control" parent="EndSlides"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="EndSlides/5"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You lure the dog away with a bag of treats
+"
+label_settings = SubResource("LabelSettings_od0mf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="EndSlides/5"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -336.0
+offset_top = 24.0
+offset_right = 336.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "(You name him \"Trouble\")"
+label_settings = SubResource("LabelSettings_5w2ne")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="EndSlides/5"]
+wait_time = 2.0
+
+[node name="6" type="Control" parent="EndSlides"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="EndSlides/6"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You guide the last of the lost souls back to the
+land of the dead (with the soles of your boots)"
+label_settings = SubResource("LabelSettings_od0mf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="EndSlides/6"]
+wait_time = 4.0
+
+[node name="7" type="Control" parent="EndSlides"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="EndSlides/7"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "On the way back home, you spot another graveyard
+swarming with ghosts"
+label_settings = SubResource("LabelSettings_od0mf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="EndSlides/7"]
+wait_time = 4.0
+
+[node name="8" type="Control" parent="EndSlides"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="EndSlides/8"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You've still got plenty of work to do."
+label_settings = SubResource("LabelSettings_od0mf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="EndSlides/8"]
+wait_time = 4.0
+
+[node name="9" type="Control" parent="EndSlides"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="EndSlides/9"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You've still got plenty of work to do."
+label_settings = SubResource("LabelSettings_od0mf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="EndSlides/9"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -304.0
+offset_top = 16.0
+offset_right = 304.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Thanks for playing!"
+label_settings = SubResource("LabelSettings_8j0b0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="EndSlides/9"]
+wait_time = 3.0
+
+[node name="10" type="Control" parent="EndSlides"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Timer" type="Timer" parent="EndSlides/10"]
+wait_time = 4.0
+
+[node name="EndMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_wuocp")
+
+[connection signal="value_changed" from="HUD/Pause/MarginContainer/PauseVBox/SoundSetting/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="HUD/Pause/MarginContainer/PauseVBox/Sensitivity/SensSlider" to="." method="_on_sens_slider_value_changed"]
+[connection signal="pressed" from="HUD/Pause/MarginContainer/PauseVBox/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="HUD/Pause/MarginContainer/PauseVBox/QuitButton" to="." method="_on_quit_button_pressed"]

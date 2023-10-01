@@ -10,7 +10,9 @@ classname = "Player"
 description = "Player spawn."
 qodot_internal = false
 base_classes = Array[Resource]([])
-class_properties = {}
+class_properties = {
+"rain": 0
+}
 class_property_descriptions = {}
 meta_properties = {
 "color": Color(0, 0.921569, 0.796078, 1),

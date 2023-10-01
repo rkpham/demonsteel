@@ -16,12 +16,16 @@ const JUMP_BUFFER = 0.1
 const COYOTE_BUFFER = 0.1
 const WALL_JUMP_VELOCITY = 12.5
 const JUMP_VELOCITY = 12.0
+const MAX_NAILS = 1
 const NAIL_GUIDANCE = 16.0
 const NAIL_GUIDANCE_RANGE = 4.0
 const NAIL_TOSS = 4.0
 const ATTACK_COOLDOWN = 0.2
 const KICK_COOLDOWN = 0.2
 const ACTION_COOLDOWN = 0.4
+const PULL_COOLDOWN = 1.0
+
+static var current = self
 
 var wall_jumped = false
 var nails_out: Array[Nail] = []
@@ -29,6 +33,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var health: int = 100
 var attack_heat = 0.0
 var kick_heat = 0.0
+var pull_heat = 0.0
 var action_heat = 0.0
 var jump_buffer_time = 0.0
 var coyote_time = 0.0
@@ -57,6 +62,11 @@ var keys = 0
 @onready var nail_raycast: RayCast3D = $Head/Camera3D/NailRayCast
 @onready var wall_jump_raycast: RayCast3D = $Head/Camera3D/WallJumpRayCast
 @onready var hammer_hit_sound = $HammerHit
+@onready var key_sound = $KeyPickup
+
+
+func _ready() -> void:
+	current = self
 
 
 func _init() -> void:
@@ -73,6 +83,7 @@ func _physics_process(delta):
 	jump_buffer_time = move_toward(jump_buffer_time, 0.0, delta)
 	coyote_time = move_toward(coyote_time, 0.0, delta)
 	kick_heat = move_toward(kick_heat, 0.0, delta)
+	pull_heat = move_toward(pull_heat, 0.0, delta)
 	attack_heat = move_toward(attack_heat, 0.0, delta)
 	
 	# Handle Jump.
@@ -125,11 +136,6 @@ func _physics_process(delta):
 	
 	velocity = Vector3(horizontal.x, velocity.y, horizontal.y)
 	
-	if Input.is_action_pressed("slow"):
-		Engine.time_scale = 0.1
-	else:
-		Engine.time_scale = 1.0
-	
 	# Inputs
 	if Input.is_action_just_pressed("attack"):
 		attack()
@@ -139,12 +145,7 @@ func _physics_process(delta):
 		pull()
 	if Input.is_action_just_pressed("melee"):
 		kick()
-	if Input.is_action_just_pressed("spawn"):
-		if nail_raycast.is_colliding():
-			var new_enemy = load("res://scenes/enemies/ghost/ghost.tscn").instantiate()
-			get_parent().add_child(new_enemy)
-			new_enemy.global_position = nail_raycast.get_collision_point() + Vector3.UP
-
+	
 	move_and_slide()
 
 
@@ -182,7 +183,6 @@ func attack() -> void:
 			hit_nail = true
 			head.play_swing_anim(true)
 			body.hit(camera.global_position)
-			fire_nail()
 	
 	if not hit_nail:
 		head.play_swing_anim(false)
@@ -195,15 +195,21 @@ func attack() -> void:
 	
 	if hit_nail:
 		nail_flash()
+		await Game.hit_lag_ended
+		fire_nail()
 	
 	attack_heat = ATTACK_COOLDOWN
 
 
 func secondary_attack() -> void:
-	if nails_out.size() < 2:
+	if nails_out.size() < MAX_NAILS:
+		head.play_toss_anim()
 		var new_nail = NAIL.instantiate()
 		get_parent().add_child(new_nail)
-		new_nail.global_transform = nail_target.global_transform.rotated_local(Vector3.UP, PI)
+		new_nail.global_transform = nail_target.global_transform
+		new_nail.global_position += new_nail.basis * Vector3(0, -1, 0.5)
+		new_nail.transform = new_nail.transform.rotated_local(Vector3.UP, PI)
+		new_nail.transform = new_nail.transform.rotated_local(Vector3.RIGHT, deg_to_rad(270))
 		new_nail.velocity = velocity - camera.global_transform.basis.z * 0.2 + Vector3.UP * NAIL_TOSS
 		
 		nails_out.append(new_nail)
@@ -215,11 +221,22 @@ func secondary_attack() -> void:
 
 
 func pull() -> void:
+	if pull_heat > 0.0:
+		return
+	
+	var pulled: bool = false
+	
 	for entity in get_tree().get_nodes_in_group("ent"):
 		if entity.get("nailed"):
-			var pull_dir = (entity.global_transform.origin - global_transform.origin)
-			entity.velocity -= pull_dir + pull_dir.normalized() * 4.0
-			velocity += pull_dir.normalized() * 8.0
+			if (entity.global_position - global_position).length() < 32.0:
+				pulled = true
+				var pull_dir = (global_position - entity.global_position)
+				entity.velocity += pull_dir.normalized() * 12.0 + Vector3.UP * 4.0
+				velocity -= pull_dir.normalized() * 4.0
+	
+	if pulled:
+		head.play_pull_anim()
+		pull_heat = PULL_COOLDOWN
 
 
 func kick() -> void:
@@ -243,9 +260,11 @@ func kick() -> void:
 				var bounce = camera.global_transform.basis.z * WALL_JUMP_VELOCITY + Vector3.UP * 2.0
 				velocity += Vector3(bounce.x, 0, bounce.z)
 				velocity.y = max(velocity.y, bounce.y)
-				await get_tree().create_timer(0.1).timeout
-				fire_nail() # make it so kicking close to two enemies doesn't hit the nail into both and kill both despite only having 1 nail
-				if not freed:
+				if freed:
+					fire_nail()
+				else:
+					if not body is AngryGhost:
+						fire_nail()
 					body.set_collision_layer_value(3, true)
 	
 	if not hit_enemy:
@@ -262,7 +281,7 @@ func kick() -> void:
 		var new_smoke_puff = SMOKE_PUFF.instantiate()
 		get_parent().add_child(new_smoke_puff)
 		new_smoke_puff.global_position = wall_jump_raycast.get_collision_point()
-		if surface_normal.dot(Vector3.UP) > 0.001:
+		if abs(surface_normal.dot(Vector3.UP)) < 1:
 			new_smoke_puff.look_at(new_smoke_puff.global_position + surface_normal, Vector3.UP)
 		new_smoke_puff.emitting = true
 		wall_jumped = true
@@ -306,7 +325,7 @@ func nail_impact(pos: Vector3):
 func nail_flash() -> void:
 	hammer_hit_sound.pitch_scale = randf_range(0.9, 1.1)
 	hammer_hit_sound.play()
-	Game.hit_lag(6)
+	Game.hit_lag(10)
 	
 	var new_hit_effect = NAIL_HIT.instantiate()
 	get_parent().add_child(new_hit_effect)
@@ -314,9 +333,10 @@ func nail_flash() -> void:
 
 
 func hit(amount: int, reset: bool) -> void:
+	$Hurt.play()
 	health -= amount
+	health = max(0, health)
 	health_changed.emit(health)
-	head.rot_offset.z = deg_to_rad(45)
 	if health <= 0:
 		Game.lost()
 	if reset:
@@ -331,6 +351,7 @@ func hit(amount: int, reset: bool) -> void:
 
 func heal(amount: int) -> void:
 	health += amount
+	health = min(100, health)
 	health_changed.emit(health)
 
 

@@ -2341,7 +2341,7 @@
 // entity 14
 {
 "classname" "MessageZone"
-"message" "Press F to kick ghosts that have nails in them"
+"message" "Press F to kick ghosts that have nails in them\nPress R to pull them closer for the kick"
 "display_time" "4"
 // brush 0
 {

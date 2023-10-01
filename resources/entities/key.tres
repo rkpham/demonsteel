@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=3 format=3 uid="uid://cbemqp6816ht5"]
 
-[ext_resource type="PackedScene" uid="uid://c2p3sy6a6oc2c" path="res://scenes/enemies/ghost/ghost.tscn" id="1_5aq7d"]
+[ext_resource type="PackedScene" uid="uid://bkchlya1foxdm" path="res://scenes/pickups/key_pickup.tscn" id="1_smc65"]
 [ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="2_m1xyn"]
 
 [resource]
 script = ExtResource("2_m1xyn")
-scene_file = ExtResource("1_5aq7d")
+scene_file = ExtResource("1_smc65")
 classname = "Key"
 description = "Pickup in order to unlock a gate."
 qodot_internal = false
@@ -15,8 +15,8 @@ class_properties = {
 }
 class_property_descriptions = {}
 meta_properties = {
-"color": Color(1, 0, 0, 1),
-"size": AABB(0, 0, -16, 16, 16, 16)
+"color": Color(1, 1, 0, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
 }
 node_class = ""
 transient_node = false
